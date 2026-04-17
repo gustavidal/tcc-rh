@@ -15,7 +15,7 @@ O documento contém:
 ## Lucid App - Casos de Uso
 https://lucid.app/lucidspark/2447e233-abff-4184-a90c-aad167e9862c/edit?viewport_loc=-1663%2C-594%2C724%2C1191%2C0_0&invitationId=inv_9c25946b-c789-4663-b2db-d94cf8c4cc72
 
-## Planilha Google - Documentação de Requisitos
+## Planilha Google - Levantamento de Requisitos
 https://docs.google.com/spreadsheets/d/1EIyKGzY4J2hO5VJ0-vfPVmxra09trC3KwJ_VprNEyBo/edit?usp=sharing
 
 A planilha contém:

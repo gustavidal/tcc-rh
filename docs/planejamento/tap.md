@@ -104,8 +104,9 @@ As etapas incluem:
 
 ---
 
-## 10. Cronograma (Resumo)  
+## 10. Cronograma  
 
+- **Janeiro - Abril:** Documentação acadêmica
 - **Abril – Maio:** Levantamento de requisitos e fundamentação teórica  
 - **Maio – Junho:** Modelagem do sistema (conceitual, lógico e físico)  
 - **Junho – Agosto:** Desenvolvimento da aplicação  
