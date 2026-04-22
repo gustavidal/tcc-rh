@@ -12,7 +12,7 @@ const knex = require('knex')
 const knexDatabaseConfig = require('../../database_config/knexConfig.js')
 
 // Criar conexão com o Banco de Dados MySQL conforme o arquivo de configuração
-const knexConection = knex(knexDatabaseConfig.development)
+const knexConnection = knex(knexDatabaseConfig.development)
 
 // Função para inserir um novo colaborador no banco de dados
 const insertColaborador = async function (colaborador) {
