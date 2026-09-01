@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: Projeto de Controle de Produtos - Frequency 80 Cafe
+  title: Sistema Integrado de Inteligência Estratégica em Gestão de Pessoas para Apoio à Tomada de Decisão
   description: |-
-   API destinada a controle de produtos para a cafeteria temática "Frequency 80 Cafe".
+   API destinada ao software de gestão de desempenho "ColaborE".
   termsOfService: http://swagger.io/terms/
   contact:
     email: gustavovidalgva@gmail.com
@@ -16,11 +16,11 @@ externalDocs:
 servers:
   - url: http://localhost:8080/
 tags:
-  - name: "Administração (Admin)"
+  - name: "Usuário"
     description: "Endpoints restritos (admin) para gerenciamento do sistema"
-  - name: "Administração (Categoria)"
+  - name: "Gestor"
     description: "Endpoints restritos (categoria) para gerenciamento do sistema"
-  - name: "Administração (Imagem)"
+  - name: "Administativo"
     description: "Endpoints restritos (imagem) para gerenciamento do sistema"
   - name: "Administração (Produto)"
     description: "Endpoints restritos (produto) para gerenciamento do sistema"
