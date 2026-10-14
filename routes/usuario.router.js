@@ -10,6 +10,9 @@ const bodyParserJSON = bodyParser.json()
 // Criando um objeto de rota para os endpoints
 const router = express.Router()
 
+// Import do middleware de autenticação para verificar o token de acesso JWT
+const autenticar = require('../middleware/auth.js')
+
 // Import da controller de usuario
 const controllerUsuario = require('../controller/usuario/controller_usuario.js')
 
@@ -19,7 +22,7 @@ const controllerTelefone = require('../controller/telefone/controller_telefone.j
 // Import da controller de foto
 const controllerFoto = require('../controller/foto/controller_foto.js')
 
-router.post('/', bodyParserJSON, async function (request, response) {
+router.post('/', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let result      = await controllerUsuario.inserirNovoUsuario(dados, contentType)
@@ -28,14 +31,14 @@ router.post('/', bodyParserJSON, async function (request, response) {
     response.json(result)
 })
 
-router.get('/', async function (request, response) {
+router.get('/', autenticar, async function (request, response) {
     let result = await controllerUsuario.listarUsuario()
 
     response.status(result.status_code)
     response.json(result)
 })
 
-router.get('/:id', async function (request, response) {
+router.get('/:id', autenticar, async function (request, response) {
     let id     = request.params.id
     let result = await controllerUsuario.buscarUsuario(id)
 
@@ -43,7 +46,7 @@ router.get('/:id', async function (request, response) {
     response.json(result)
 })
 
-router.put('/:id', bodyParserJSON, async function (request, response) {
+router.put('/:id', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
@@ -53,7 +56,7 @@ router.put('/:id', bodyParserJSON, async function (request, response) {
     response.json(result)
 })
 
-router.delete('/:id', async function (request, response) {
+router.delete('/:id', autenticar, async function (request, response) {
     let id     = request.params.id
     let result = await controllerUsuario.excluirUsuario(id)
 
@@ -61,7 +64,7 @@ router.delete('/:id', async function (request, response) {
     response.json(result)
 })
 
-router.put('/:id/login', bodyParserJSON, async function (request, response) {
+router.put('/:id/login', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
@@ -71,7 +74,7 @@ router.put('/:id/login', bodyParserJSON, async function (request, response) {
     response.json(result)
 })
 
-router.put('/:id/foto', bodyParserJSON, async function (request, response) {
+router.put('/:id/foto', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
@@ -81,7 +84,7 @@ router.put('/:id/foto', bodyParserJSON, async function (request, response) {
     response.json(result)
 })
 
-router.delete('/:id/foto', async function (request, response) {
+router.delete('/:id/foto', autenticar, async function (request, response) {
     let id     = request.params.id
     let result = await controllerFoto.excluirFoto('usuario', id)
 
@@ -89,7 +92,7 @@ router.delete('/:id/foto', async function (request, response) {
     response.json(result)
 })
 
-router.get('/:id/telefones', async function (request, response) {
+router.get('/:id/telefones', autenticar, async function (request, response) {
     let id     = request.params.id
     let result = await controllerTelefone.listarTelefone('usuario', id)
 
@@ -97,7 +100,7 @@ router.get('/:id/telefones', async function (request, response) {
     response.json(result)
 })
 
-router.post('/:id/telefones', bodyParserJSON, async function (request, response) {
+router.post('/:id/telefones', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
@@ -107,7 +110,7 @@ router.post('/:id/telefones', bodyParserJSON, async function (request, response)
     response.json(result)
 })
 
-router.put('/:id/telefones/:id_telefone', bodyParserJSON, async function (request, response) {
+router.put('/:id/telefones/:id_telefone', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
@@ -118,7 +121,7 @@ router.put('/:id/telefones/:id_telefone', bodyParserJSON, async function (reques
     response.json(result)
 })
 
-router.delete('/:id/telefones/:id_telefone', async function (request, response) {
+router.delete('/:id/telefones/:id_telefone', autenticar, async function (request, response) {
     let id         = request.params.id
     let idTelefone = request.params.id_telefone
     let result     = await controllerTelefone.excluirTelefone('usuario', id, idTelefone)

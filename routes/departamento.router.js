@@ -10,6 +10,9 @@ const bodyParserJSON = bodyParser.json()
 // Criando um objeto de rota para os endpoints
 const router = express.Router()
 
+// Import do middleware de autenticação para verificar o token de acesso JWT
+const autenticar = require('../middleware/auth.js')
+
 // Import da controller de departamento
 const controllerDepartamento = require('../controller/departamento/controller_departamento.js')
 
@@ -19,7 +22,7 @@ const controllerTelefone = require('../controller/telefone/controller_telefone.j
 // Import da controller de email
 const controllerEmail = require('../controller/email/controller_email.js')
 
-router.post('/', bodyParserJSON, async function (request, response) {
+router.post('/', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let result      = await controllerDepartamento.inserirNovoDepartamento(dados, contentType)
@@ -28,14 +31,14 @@ router.post('/', bodyParserJSON, async function (request, response) {
     response.json(result)
 })
 
-router.get('/', async function (request, response) {
+router.get('/', autenticar, async function (request, response) {
     let result = await controllerDepartamento.listarDepartamento()
 
     response.status(result.status_code)
     response.json(result)
 })
 
-router.get('/:id', async function (request, response) {
+router.get('/:id', autenticar, async function (request, response) {
     let id     = request.params.id
     let result = await controllerDepartamento.buscarDepartamento(id)
 
@@ -43,7 +46,7 @@ router.get('/:id', async function (request, response) {
     response.json(result)
 })
 
-router.put('/:id', bodyParserJSON, async function (request, response) {
+router.put('/:id', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
@@ -53,7 +56,7 @@ router.put('/:id', bodyParserJSON, async function (request, response) {
     response.json(result)
 })
 
-router.delete('/:id', async function (request, response) {
+router.delete('/:id', autenticar, async function (request, response) {
     let id     = request.params.id
     let result = await controllerDepartamento.excluirDepartamento(id)
 
@@ -61,7 +64,7 @@ router.delete('/:id', async function (request, response) {
     response.json(result)
 })
 
-router.get('/:id/telefones', async function (request, response) {
+router.get('/:id/telefones', autenticar, async function (request, response) {
     let id     = request.params.id
     let result = await controllerTelefone.listarTelefone('departamento', id)
 
@@ -69,7 +72,7 @@ router.get('/:id/telefones', async function (request, response) {
     response.json(result)
 })
 
-router.post('/:id/telefones', bodyParserJSON, async function (request, response) {
+router.post('/:id/telefones', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
@@ -79,7 +82,7 @@ router.post('/:id/telefones', bodyParserJSON, async function (request, response)
     response.json(result)
 })
 
-router.put('/:id/telefones/:id_telefone', bodyParserJSON, async function (request, response) {
+router.put('/:id/telefones/:id_telefone', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
@@ -90,7 +93,7 @@ router.put('/:id/telefones/:id_telefone', bodyParserJSON, async function (reques
     response.json(result)
 })
 
-router.delete('/:id/telefones/:id_telefone', async function (request, response) {
+router.delete('/:id/telefones/:id_telefone', autenticar, async function (request, response) {
     let id         = request.params.id
     let idTelefone = request.params.id_telefone
     let result     = await controllerTelefone.excluirTelefone('departamento', id, idTelefone)
@@ -99,7 +102,7 @@ router.delete('/:id/telefones/:id_telefone', async function (request, response) 
     response.json(result)
 })
 
-router.get('/:id/emails', async function (request, response) {
+router.get('/:id/emails', autenticar, async function (request, response) {
     let id     = request.params.id
     let result = await controllerEmail.listarEmail('departamento', id)
 
@@ -107,7 +110,7 @@ router.get('/:id/emails', async function (request, response) {
     response.json(result)
 })
 
-router.post('/:id/emails', bodyParserJSON, async function (request, response) {
+router.post('/:id/emails', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
@@ -117,7 +120,7 @@ router.post('/:id/emails', bodyParserJSON, async function (request, response) {
     response.json(result)
 })
 
-router.put('/:id/emails/:id_email', bodyParserJSON, async function (request, response) {
+router.put('/:id/emails/:id_email', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
@@ -128,7 +131,7 @@ router.put('/:id/emails/:id_email', bodyParserJSON, async function (request, res
     response.json(result)
 })
 
-router.delete('/:id/emails/:id_email', async function (request, response) {
+router.delete('/:id/emails/:id_email', autenticar, async function (request, response) {
     let id      = request.params.id
     let idEmail = request.params.id_email
     let result  = await controllerEmail.excluirEmail('departamento', id, idEmail)
@@ -137,7 +140,7 @@ router.delete('/:id/emails/:id_email', async function (request, response) {
     response.json(result)
 })
 
-router.get('/:id/funcionarios', async function (request, response) {
+router.get('/:id/funcionarios', autenticar, async function (request, response) {
     let id     = request.params.id
     let result = await controllerDepartamento.listarFuncionariosDepartamento(id)
 

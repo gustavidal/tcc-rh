@@ -1,9 +1,9 @@
+// Carrega as variáveis de ambiente do arquivo .env
+require('dotenv').config()
+
 // Import das dependências para criar a API
 const express = require('express')
 const cors = require('cors')
-
-// Import do middleware que valida o token JWT
-const verificarJWT = require('./middleware/verificar_jwt.js')
 
 // Criando um objeto do express para criar a API
 const app = express()
@@ -23,15 +23,12 @@ app.use(cors(corsOptions))
 
 
 
-// ROTAS PÚBLICAS (não exigem token)
+// ROTAS DA AUTENTICAÇÃO
 // Import do arquivo de rotas da autenticação
 const authRouter = require('./routes/auth.router.js')
 app.use(PREFIXO + '/auth', authRouter)
 
 
-
-// A PARTIR DAQUI TODAS AS ROTAS EXIGEM O TOKEN JWT (Authorization: Bearer <token>)
-app.use(PREFIXO, verificarJWT)
 
 // Import do arquivo de rotas do usuário
 const usuarioRouter = require('./routes/usuario.router.js')

@@ -1,13 +1,16 @@
+// Carrega as variáveis de ambiente do arquivo .env (necessário também para o CLI do knex)
+require('dotenv').config()
+
 module.exports = {
     development: {
-        // ⚠️ ALTERAÇÃO: Define o cliente como 'mysql2'
+        // Define o cliente como 'mysql2'
         client: 'mysql2',
         connection: {
-            host: 'localhost',
-            user: 'root', // Substitua pelo seu usuário
-            password: 'bcd127', // Substitua pela sua senha
-            database: 'db_filmes_20261_b',
-            port: 3306, // Porta padrão do MySQL
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME,
+            port: Number(process.env.DB_PORT) || 3306, // Porta padrão do MySQL
 
             // Opcional: Define charset (recomendado para UTF8)
             charset: 'utf8mb4'

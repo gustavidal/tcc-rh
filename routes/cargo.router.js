@@ -10,46 +10,49 @@ const bodyParserJSON = bodyParser.json()
 // Criando um objeto de rota para os endpoints
 const router = express.Router()
 
-// Import da controller de status funcionario
-const controllerStatusFuncionario = require('../controller/status_funcionario/controller_status_funcionario.js')
+// Import do middleware de autenticação para verificar o token de acesso JWT
+const autenticar = require('../middleware/auth.js')
 
-router.post('/', bodyParserJSON, async function (request, response) {
+// Import da controller de cargo
+const controllerCargo = require('../controller/cargo/controller_cargo.js')
+
+router.post('/', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
-    let result      = await controllerStatusFuncionario.inserirNovoStatusFuncionario(dados, contentType)
+    let result      = await controllerCargo.inserirNovoCargo(dados, contentType)
 
     response.status(result.status_code)
     response.json(result)
 })
 
-router.get('/', async function (request, response) {
-    let result = await controllerStatusFuncionario.listarStatusFuncionario()
+router.get('/', autenticar, async function (request, response) {
+    let result = await controllerCargo.listarCargo()
 
     response.status(result.status_code)
     response.json(result)
 })
 
-router.get('/:id', async function (request, response) {
+router.get('/:id', autenticar, async function (request, response) {
     let id     = request.params.id
-    let result = await controllerStatusFuncionario.buscarStatusFuncionario(id)
+    let result = await controllerCargo.buscarCargo(id)
 
     response.status(result.status_code)
     response.json(result)
 })
 
-router.put('/:id', bodyParserJSON, async function (request, response) {
+router.put('/:id', autenticar, bodyParserJSON, async function (request, response) {
     let dados       = request.body
     let contentType = request.headers['content-type']
     let id          = request.params.id
-    let result      = await controllerStatusFuncionario.atualizarStatusFuncionario(dados, id, contentType)
+    let result      = await controllerCargo.atualizarCargo(dados, id, contentType)
 
     response.status(result.status_code)
     response.json(result)
 })
 
-router.delete('/:id', async function (request, response) {
+router.delete('/:id', autenticar, async function (request, response) {
     let id     = request.params.id
-    let result = await controllerStatusFuncionario.excluirStatusFuncionario(id)
+    let result = await controllerCargo.excluirCargo(id)
 
     response.status(result.status_code)
     response.json(result)
