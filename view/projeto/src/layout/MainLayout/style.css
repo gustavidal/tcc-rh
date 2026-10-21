@@ -1,0 +1,16 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.layout__principal {
+  flex: 1;
+  margin-left: var(--largura-sidebar);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.layout__conteudo {
+  padding: 24px;
+}

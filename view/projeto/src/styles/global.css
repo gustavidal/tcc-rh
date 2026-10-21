@@ -1,0 +1,34 @@
+:root {
+  /* cores (aproximadas, tirei pelo olho das imagens) */
+  --cor-sidebar: #0b1d3f;
+  --cor-fundo: #f2f6ff;
+  --cor-card: #ffffff;
+  --cor-primaria: #0047d6;
+  --cor-texto: #111111;
+  --cor-texto-suave: #6b7280;
+  --cor-borda: #e5e7eb;
+
+  /* status */
+  --cor-sucesso: #1f9d55;
+  --cor-sucesso-fundo: #d6f5e0;
+  --cor-alerta: #b7791f;
+  --cor-alerta-fundo: #fdeaa8;
+  --cor-perigo: #d62828;
+  --cor-perigo-fundo: #ffb3b3;
+
+  --raio-card: 12px;
+  --sombra-card: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --largura-sidebar: 224px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", Arial, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
