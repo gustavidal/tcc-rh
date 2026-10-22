@@ -2,38 +2,39 @@
 const configMessages = require('../modulo/configMessages.js')
 
 //Import da DAO
-const cargoDAO = require('../../model/DAO/cargo/cargo.js')
+const sexoDAO = require('../../model/DAO/sexo/sexo.js')
 
 // Import das funções globais
 const validarDados = require('../../utils/validar_dados/validar_dados.js')
+const sexoSchema = require('../../schemas/sexo_schema.js')
 
-const validarDadosCargo = function (dados) {
+const validarDadosSexo = function (dados) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
-    let validar = validarDados.validarDados(contatoEmergenciaSchema, dados, customMessages)
+    let validar = validarDados.validarDados(sexoSchema, dados, customMessages)
 
     return validar
 }
 
 //Função INSERT
-const inserirNovoCargo = async function (cargo, contentType) {
+const inserirNovoSexo = async function (sexo, contentType) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
-            let validar = await validarDadosCargo(cargo)
+            let validar = await validarDadosSexo(sexo)
             
             if (validar)
                 return validar
             else {
-                let result = await cargoDAO.insertCargo(cargo)
+                let result = await sexoDAO.insertSexo(sexo)
 
                 if (result) {
-                    cargo.id = result
+                    sexo.id = result
 
                     customMessages.DEFAULT_MESSAGE.status       = customMessages.SUCCESS_CREATED_ITEM.status
                     customMessages.DEFAULT_MESSAGE.status_code  = customMessages.SUCCESS_CREATED_ITEM.status_code
                     customMessages.DEFAULT_MESSAGE.message      = customMessages.SUCCESS_CREATED_ITEM.message
-                    customMessages.DEFAULT_MESSAGE.response     = cargo
+                    customMessages.DEFAULT_MESSAGE.response     = sexo
 
                     return customMessages.DEFAULT_MESSAGE
                 } else
@@ -48,26 +49,26 @@ const inserirNovoCargo = async function (cargo, contentType) {
 }
 
 //Função ATUALIZAR
-const atualizarCargo = async function (cargo, id, contentType) {
+const atualizarSexo = async function (sexo, id, contentType) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
-            let resultBuscarID = await buscarCargo(id)
+            let resultBuscarID = await buscarSexo(id)
 
             if (resultBuscarID.status) {
-                let validar = await validarDadosCargo(cargo)
+                let validar = await validarDadosSexo(sexo)
 
                 if (!validar) {
-                    cargo.id = Number(id)
+                    sexo.id = Number(id)
 
-                    let result = await cargoDAO.updateCargo(cargo)
+                    let result = await sexoDAO.updateSexo(sexo)
 
                     if (result) {
                         customMessages.DEFAULT_MESSAGE.status       = customMessages.SUCCESS_UPDATE_ITEM.status
                         customMessages.DEFAULT_MESSAGE.status_code  = customMessages.SUCCESS_UPDATE_ITEM.status_code
                         customMessages.DEFAULT_MESSAGE.message      = customMessages.SUCCESS_UPDATE_ITEM.message
-                        customMessages.DEFAULT_MESSAGE.response     = cargo
+                        customMessages.DEFAULT_MESSAGE.response     = sexo
 
                         return customMessages.DEFAULT_MESSAGE
                     } else
@@ -84,18 +85,18 @@ const atualizarCargo = async function (cargo, id, contentType) {
 }
 
 //Função LISTAR TODOS
-const listarCargo = async function () {
+const listarSexo = async function () {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
-        let result = await cargoDAO.selectAllCargo()
+        let result = await sexoDAO.selectAllSexo()
 
         if (result) {
             if (result.length > 0) {
                 customMessages.DEFAULT_MESSAGE.status           = customMessages.SUCCESS_RESPONSE.status
                 customMessages.DEFAULT_MESSAGE.status_code      = customMessages.SUCCESS_RESPONSE.status_code
             customMessages.DEFAULT_MESSAGE.response.count       = result.length
-                customMessages.DEFAULT_MESSAGE.response.cargo   = result
+                customMessages.DEFAULT_MESSAGE.response.sexo    = result
 
                 return customMessages.DEFAULT_MESSAGE
             } else
@@ -108,7 +109,7 @@ const listarCargo = async function () {
 }
 
 //Função BUSCAR POR ID
-const buscarCargo = async function (id) {
+const buscarSexo = async function (id) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
@@ -116,13 +117,13 @@ const buscarCargo = async function (id) {
         if (validarID) {
             return validarID
         } else {
-            let result = await cargoDAO.selectByIdCargo(id)
+            let result = await sexoDAO.selectByIdSexo(id)
 
             if (result) {
                 if (result.length > 0) {
                     customMessages.DEFAULT_MESSAGE.status           = customMessages.SUCCESS_RESPONSE.status
                     customMessages.DEFAULT_MESSAGE.status_code      = customMessages.SUCCESS_RESPONSE.status_code
-                    customMessages.DEFAULT_MESSAGE.response.cargo   = result
+                    customMessages.DEFAULT_MESSAGE.response.sexo    = result
 
                     return customMessages.DEFAULT_MESSAGE
                 } else 
@@ -137,17 +138,17 @@ const buscarCargo = async function (id) {
 }
 
 //Função BUSCAR POR ID
-const buscarSiglaCargo = async function (sigla) {
+const buscarSiglaSexo = async function (sigla) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
-        let result = await cargoDAO.selectBySiglaCargo(sigla)
+        let result = await sexoDAO.selectBySiglaSexo(sigla)
 
         if (result) {
             if (result.length > 0) {
                 customMessages.DEFAULT_MESSAGE.status           = customMessages.SUCCESS_RESPONSE.status
                 customMessages.DEFAULT_MESSAGE.status_code      = customMessages.SUCCESS_RESPONSE.status_code
-                customMessages.DEFAULT_MESSAGE.response.cargo   = result
+                customMessages.DEFAULT_MESSAGE.response.sexo    = result
 
                 return customMessages.DEFAULT_MESSAGE
             } else 
@@ -161,14 +162,14 @@ const buscarSiglaCargo = async function (sigla) {
 }
 
 //Função EXCLUIR
-const excluirCargo = async function (id) {
+const excluirSexo = async function (id) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
-        let resultBuscarID = await buscarCargo(id)
+        let resultBuscarID = await buscarSexo(id)
 
         if (resultBuscarID.status) {
-            let result = await cargoDAO.deleteCargo(id)
+            let result = await sexoDAO.deleteSexo(id)
 
             if (result) {
                 return customMessages.SUCCESS_DELETE_ITEM
@@ -182,10 +183,10 @@ const excluirCargo = async function (id) {
 }
 
 module.exports = {
-    inserirNovoCargo,
-    atualizarCargo,
-    listarCargo,
-    buscarCargo,
-    buscarSiglaCargo,
-    excluirCargo
+    inserirNovoSexo,
+    atualizarSexo,
+    listarSexo,
+    buscarSexo,
+    buscarSiglaSexo,
+    excluirSexo
 }

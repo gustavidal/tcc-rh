@@ -6,10 +6,11 @@ const cargoDAO = require('../../model/DAO/cargo/cargo.js')
 
 // Import das funções globais
 const validarDados = require('../../utils/validar_dados/validar_dados.js')
+const cargoSchema = require('../../schemas/cargo_schema.js')
 
 const validarDadosCargo = function (dados) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
-    let validar = validarDados.validarDados(contatoEmergenciaSchema, dados, customMessages)
+    let validar = validarDados.validarDados(cargoSchema, dados, customMessages)
 
     return validar
 }
