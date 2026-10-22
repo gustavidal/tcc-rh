@@ -16,25 +16,25 @@ const validarDadosTipoTelefone = function (dados) {
 }
 
 //Função INSERT
-const inserirNovoSexo = async function (sexo, contentType) {
+const inserirNovoTipoTelefone = async function (tipoTelefone, contentType) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
-            let validar = await validarDadosTipoTelefone(sexo)
+            let validar = await validarDadosTipoTelefone(tipoTelefone)
             
             if (validar)
                 return validar
             else {
-                let result = await tipoTelefoneDAO.insertSexo(sexo)
+                let result = await tipoTelefoneDAO.insertTipoTelefone(tipoTelefone)
 
                 if (result) {
-                    sexo.id = result
+                    tipoTelefone.id = result
 
                     customMessages.DEFAULT_MESSAGE.status       = customMessages.SUCCESS_CREATED_ITEM.status
                     customMessages.DEFAULT_MESSAGE.status_code  = customMessages.SUCCESS_CREATED_ITEM.status_code
                     customMessages.DEFAULT_MESSAGE.message      = customMessages.SUCCESS_CREATED_ITEM.message
-                    customMessages.DEFAULT_MESSAGE.response     = sexo
+                    customMessages.DEFAULT_MESSAGE.response     = tipoTelefone
 
                     return customMessages.DEFAULT_MESSAGE
                 } else
@@ -49,26 +49,26 @@ const inserirNovoSexo = async function (sexo, contentType) {
 }
 
 //Função ATUALIZAR
-const atualizarSexo = async function (sexo, id, contentType) {
+const atualizarTipoTelefone = async function (tipoTelefone, id, contentType) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
-            let resultBuscarID = await buscarSexo(id)
+            let resultBuscarID = await buscarTipoTelefone(id)
 
             if (resultBuscarID.status) {
-                let validar = await validarDadosTipoTelefone(sexo)
+                let validar = await validarDadosTipoTelefone(tipoTelefone)
 
                 if (!validar) {
-                    sexo.id = Number(id)
+                    tipoTelefone.id = Number(id)
 
-                    let result = await tipoTelefoneDAO.updateSexo(sexo)
+                    let result = await tipoTelefoneDAO.updateTipoTelefone(tipoTelefone)
 
                     if (result) {
                         customMessages.DEFAULT_MESSAGE.status       = customMessages.SUCCESS_UPDATE_ITEM.status
                         customMessages.DEFAULT_MESSAGE.status_code  = customMessages.SUCCESS_UPDATE_ITEM.status_code
                         customMessages.DEFAULT_MESSAGE.message      = customMessages.SUCCESS_UPDATE_ITEM.message
-                        customMessages.DEFAULT_MESSAGE.response     = sexo
+                        customMessages.DEFAULT_MESSAGE.response     = tipoTelefone
 
                         return customMessages.DEFAULT_MESSAGE
                     } else
@@ -85,18 +85,18 @@ const atualizarSexo = async function (sexo, id, contentType) {
 }
 
 //Função LISTAR TODOS
-const listarSexo = async function () {
+const listarTipoTelefone = async function () {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
-        let result = await tipoTelefoneDAO.selectAllSexo()
+        let result = await tipoTelefoneDAO.selectAllTipoTelefone()
 
         if (result) {
             if (result.length > 0) {
-                customMessages.DEFAULT_MESSAGE.status           = customMessages.SUCCESS_RESPONSE.status
-                customMessages.DEFAULT_MESSAGE.status_code      = customMessages.SUCCESS_RESPONSE.status_code
-            customMessages.DEFAULT_MESSAGE.response.count       = result.length
-                customMessages.DEFAULT_MESSAGE.response.sexo    = result
+                customMessages.DEFAULT_MESSAGE.status                   = customMessages.SUCCESS_RESPONSE.status
+                customMessages.DEFAULT_MESSAGE.status_code              = customMessages.SUCCESS_RESPONSE.status_code
+            customMessages.DEFAULT_MESSAGE.response.count               = result.length
+                customMessages.DEFAULT_MESSAGE.response.tipo_telefone   = result
 
                 return customMessages.DEFAULT_MESSAGE
             } else
@@ -109,7 +109,7 @@ const listarSexo = async function () {
 }
 
 //Função BUSCAR POR ID
-const buscarSexo = async function (id) {
+const buscarTipoTelefone = async function (id) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
@@ -117,13 +117,13 @@ const buscarSexo = async function (id) {
         if (validarID) {
             return validarID
         } else {
-            let result = await tipoTelefoneDAO.selectByIdSexo(id)
+            let result = await tipoTelefoneDAO.selectByIdTipoTelefone(id)
 
             if (result) {
                 if (result.length > 0) {
-                    customMessages.DEFAULT_MESSAGE.status           = customMessages.SUCCESS_RESPONSE.status
-                    customMessages.DEFAULT_MESSAGE.status_code      = customMessages.SUCCESS_RESPONSE.status_code
-                    customMessages.DEFAULT_MESSAGE.response.sexo    = result
+                    customMessages.DEFAULT_MESSAGE.status                   = customMessages.SUCCESS_RESPONSE.status
+                    customMessages.DEFAULT_MESSAGE.status_code              = customMessages.SUCCESS_RESPONSE.status_code
+                    customMessages.DEFAULT_MESSAGE.response.tipo_telefone   = result
 
                     return customMessages.DEFAULT_MESSAGE
                 } else 
@@ -138,17 +138,17 @@ const buscarSexo = async function (id) {
 }
 
 //Função BUSCAR POR ID
-const buscarSiglaSexo = async function (sigla) {
+const buscarOTipoTelefone = async function (tipo) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
-        let result = await tipoTelefoneDAO.selectBySiglaSexo(sigla)
+        let result = await tipoTelefoneDAO.selectByTipoTelefone(tipo)
 
         if (result) {
             if (result.length > 0) {
-                customMessages.DEFAULT_MESSAGE.status           = customMessages.SUCCESS_RESPONSE.status
-                customMessages.DEFAULT_MESSAGE.status_code      = customMessages.SUCCESS_RESPONSE.status_code
-                customMessages.DEFAULT_MESSAGE.response.sexo    = result
+                customMessages.DEFAULT_MESSAGE.status                   = customMessages.SUCCESS_RESPONSE.status
+                customMessages.DEFAULT_MESSAGE.status_code              = customMessages.SUCCESS_RESPONSE.status_code
+                customMessages.DEFAULT_MESSAGE.response.tipo_telefone   = result
 
                 return customMessages.DEFAULT_MESSAGE
             } else 
@@ -162,14 +162,14 @@ const buscarSiglaSexo = async function (sigla) {
 }
 
 //Função EXCLUIR
-const excluirSexo = async function (id) {
+const excluirTipoTelefone = async function (id) {
     let customMessages = JSON.parse(JSON.stringify(configMessages))
 
     try {
-        let resultBuscarID = await buscarSexo(id)
+        let resultBuscarID = await buscarTipoTelefone(id)
 
         if (resultBuscarID.status) {
-            let result = await tipoTelefoneDAO.deleteSexo(id)
+            let result = await tipoTelefoneDAO.deleteTipoTelefone(id)
 
             if (result) {
                 return customMessages.SUCCESS_DELETE_ITEM
@@ -183,10 +183,10 @@ const excluirSexo = async function (id) {
 }
 
 module.exports = {
-    inserirNovoSexo,
-    atualizarSexo,
-    listarSexo,
-    buscarSexo,
-    buscarSiglaSexo,
-    excluirSexo
+    inserirNovoTipoTelefone,
+    atualizarTipoTelefone,
+    listarTipoTelefone,
+    buscarTipoTelefone,
+    buscarOTipoTelefone,
+    excluirTipoTelefone
 }
