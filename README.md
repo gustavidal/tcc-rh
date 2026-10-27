@@ -1,45 +1,20 @@
-﻿# Sistema Integrado de Inteligência Estratégica em Gestão de Pessoas para Apoio à Tomada de Decisão
+# Colabore — Backend organizado no padrão MedTime
 
-## Sobre o Projeto
-Este projeto consiste no desenvolvimento de um sistema voltado à gestão de pessoas, com foco na integração de dados e apoio à tomada de decisão.
+Cada tabela possui DAO, Service, Controller e Route independentes.
 
-A proposta busca resolver um problema comum nas organizações: a análise isolada de informações, que dificulta decisões estratégicas. O sistema integra dados de desempenho, indicadores organizacionais e avaliações, permitindo uma visão mais completa e precisa.
+- `models/DAO/<tabela>/<tabela>.js`: executa a procedure com Knex e parâmetros posicionais.
+- `services/<tabela>/service_<tabela>.js`: valida dados, chama a DAO e retorna mensagens.
+- `controllers/<tabela>/controller_<tabela>.js`: lida com as regras da requisição.
+- `routes/<tabela>.router.js`: disponibiliza os endpoints separados.
+- `models/global_knex`: conexão Knex; `middleware`: autenticação/autorização.
+- `database`: SQL do banco corrigido, incluindo views e procedures.
 
-## Objetivo
-Desenvolver uma aplicação capaz de coletar, processar e correlacionar dados de desempenho, carga de trabalho e indicadores organizacionais, gerando métricas automatizadas que auxiliem gestores na identificação de padrões, riscos operacionais e oportunidades de melhoria.
+## Execução
 
-## Funcionalidades
-- Registro e avaliação de desempenho baseada em competências
-- Cálculo automatizado de índice de sobrecarga por colaborador
-- Correlação entre desempenho, carga de trabalho e indicadores organizacionais
-- Geração de relatórios analíticos com métricas consolidadas
-- Visualização de dados para apoio à decisão gerencial
+1. Configure suas variáveis de ambiente (`DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` e `JWT_SECRET`) de acordo com os arquivos de configuração.
+2. `npm install`
+3. `npm start`
 
-## Tecnologias Utilizadas
-- Front-end: HTML, CSS, JavaScript
-- Back-end: Node.js
-- Banco de dados: MySQL
-- Ferramentas: Git, GitHub
+As rotas das tabelas usam `/api/recursos/<recurso>`. Os fluxos compostos ainda são rotas específicas de ações/conta.
 
-## Equipe
-- Gustavo Vidal de Abreu – Back-end (API)
-- Kauan Alves Pereira – Back-end e modelagem de banco
-- Kayque Brenno Ferreira Almeida - Mobile (futuramente)
-- Kemilly Silva Siqueira dos Santos – UI/UX Design
-- Luiz Guilherme Hipólito da Silva – Gerenciamento de banco de dados
-- Pyetro Ferreira de Souza – Front-end e Mobile (futuramente)
-
-## Problema Resolvido
-Muitas organizações analisam desempenho, carga de trabalho e indicadores de forma isolada, o que compromete a qualidade das decisões.
-
-O sistema proposto integra essas informações e aplica regras de análise para gerar métricas consolidadas, reduzindo subjetividade e aumentando a confiabilidade na tomada de decisão.
-
-## Benefícios
-- Melhor tomada de decisão
-- Identificação de sobrecarga
-- Aumento da produtividade
-- Redução de erros
-- Maior alinhamento organizacional
-
-## Status do Projeto
-Em desenvolvimento
+**Atenção**: esta é uma revisão de estrutura e escrita. Não foi possível executar o MySQL real nem homologar todos os fluxos.

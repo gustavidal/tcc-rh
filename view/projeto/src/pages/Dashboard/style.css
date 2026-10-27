@@ -1,0 +1,38 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard__metricas {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+/* 3 colunas: gráfico | gráfico | coluna da direita */
+.dashboard__corpo {
+  display: grid;
+  grid-template-columns: 1fr 1fr 320px;
+  gap: 16px;
+}
+
+/* evita o gráfico estourar a coluna */
+.dashboard__corpo > * {
+  min-width: 0;
+}
+
+.dashboard__alertas {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.dashboard__acoes {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.dashboard__tabela {
+  grid-column: 1 / 3;
+  grid-row: 2;
+}

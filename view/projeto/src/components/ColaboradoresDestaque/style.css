@@ -1,0 +1,57 @@
+.destaque__rolagem {
+  overflow-x: auto;
+}
+
+.destaque__tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.destaque__tabela th {
+  background: #f1f1f1;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.destaque__tabela td {
+  padding: 10px 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+/* colunas de texto alinhadas à esquerda */
+.destaque__tabela .esq {
+  text-align: left;
+}
+
+.destaque__pessoa {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.destaque__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.destaque__ver-todos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 14px;
+  color: #2f80ed;
+  text-decoration: underline;
+  font-size: 14px;
+}

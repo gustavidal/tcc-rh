@@ -1,69 +1,34 @@
-// Import do express
 const express = require('express')
 
-// Import do body-parser
-const bodyParser = require('body-parser')
-
-// Permitindo a utilização do JSON na body das requisições
-const bodyParserJSON = bodyParser.json()
-
-// Criando um objeto de rota para os endpoints
 const router = express.Router()
 
-// Import do middleware de autenticação para verificar o token de acesso JWT
-const autenticar = require('../middleware/auth.js')
+const controller = require('../controllers/meta_organizacional/controller_meta_organizacional.js')
 
-// Import da controller de meta organizacional
-const controllerMetaOrganizacional = require('../controller/meta_organizacional/controller_meta_organizacional.js')
+const responder = (res, resultado) => res.status(resultado.status_code || 500).json(resultado)
 
-router.post('/', autenticar, bodyParserJSON, async function (request, response) {
-    let dados       = request.body
-    let contentType = request.headers['content-type']
-    let result      = await controllerMetaOrganizacional.inserirNovaMetaOrganizacional(dados, contentType)
-
-    response.status(result.status_code)
-    response.json(result)
+router.post('/', async function (req, res) {
+    let result = await controller.inserirNovoMetaOrganizacional(req.body, req.headers['content-type'])
+    return responder(res, result)
 })
 
-router.get('/', autenticar, async function (request, response) {
-    let result = await controllerMetaOrganizacional.listarMetaOrganizacional()
-
-    response.status(result.status_code)
-    response.json(result)
+router.get('/', async function (req, res) {
+    let result = await controller.listarMetaOrganizacional()
+    return responder(res, result)
 })
 
-router.get('/:id', autenticar, async function (request, response) {
-    let id     = request.params.id
-    let result = await controllerMetaOrganizacional.buscarMetaOrganizacional(id)
-
-    response.status(result.status_code)
-    response.json(result)
+router.get('/:id', async function (req, res) {
+    let result = await controller.buscarMetaOrganizacional(req.params.id)
+    return responder(res, result)
 })
 
-router.put('/:id', autenticar, bodyParserJSON, async function (request, response) {
-    let dados       = request.body
-    let contentType = request.headers['content-type']
-    let id          = request.params.id
-    let result      = await controllerMetaOrganizacional.atualizarMetaOrganizacional(dados, id, contentType)
-
-    response.status(result.status_code)
-    response.json(result)
+router.put('/:id', async function (req, res) {
+    let result = await controller.atualizarMetaOrganizacional(req.body, req.params.id, req.headers['content-type'])
+    return responder(res, result)
 })
 
-router.delete('/:id', autenticar, async function (request, response) {
-    let id     = request.params.id
-    let result = await controllerMetaOrganizacional.excluirMetaOrganizacional(id)
-
-    response.status(result.status_code)
-    response.json(result)
-})
-
-router.get('/:id/funcionarios', autenticar, async function (request, response) {
-    let id     = request.params.id
-    let result = await controllerMetaOrganizacional.listarFuncionariosMetaOrganizacional(id)
-
-    response.status(result.status_code)
-    response.json(result)
+router.delete('/:id', async function (req, res) {
+    let result = await controller.excluirMetaOrganizacional(req.params.id)
+    return responder(res, result)
 })
 
 module.exports = router

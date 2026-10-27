@@ -1,0 +1,58 @@
+.alertas__lista {
+  list-style: none;
+}
+
+.alertas__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--cor-borda);
+  color: inherit;
+  text-decoration: none;
+}
+
+.alertas__icone {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.alertas__icone--vermelho { background: #ffb3b3; color: #d62828; }
+.alertas__icone--amarelo  { background: #fff3b0; color: #b7791f; }
+.alertas__icone--azul     { background: #d6e4ff; color: #2f6fd6; }
+
+.alertas__texto {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.alertas__texto strong {
+  font-size: 15px;
+  text-decoration: underline;
+}
+
+.alertas__texto small {
+  color: var(--cor-texto-suave);
+  font-size: 12px;
+}
+
+.alertas__seta {
+  color: var(--cor-texto-suave);
+}
+
+.alertas__ver-todos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 18px;
+  color: #2f80ed;
+  text-decoration: none;
+  font-size: 15px;
+}

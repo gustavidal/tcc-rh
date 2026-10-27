@@ -1,0 +1,36 @@
+.acoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.acoes__botao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 8px;
+  background: #e8edfb;
+  border-radius: 10px;
+  color: var(--cor-texto);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.acoes__botao:hover {
+  background: #d9e2f8;
+}
+
+.acoes__icone {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #cfdcff;
+  color: #2f6fd6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

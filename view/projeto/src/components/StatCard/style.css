@@ -1,0 +1,53 @@
+.stat-card {
+  background: var(--cor-card);
+  border-radius: var(--raio-card);
+  box-shadow: var(--sombra-card);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stat-card__topo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-card__icone {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* variações de cor (uma por tipo de card) */
+.stat-card__icone--azul     { background: #bfdcff; color: #2f6fd6; }
+.stat-card__icone--roxo     { background: #e3dcff; color: #7c4dff; }
+.stat-card__icone--amarelo  { background: #ffe9b8; color: #e0a000; }
+.stat-card__icone--verde    { background: #cdeed8; color: #1f9d55; }
+.stat-card__icone--vermelho { background: #ffb8b8; color: #d62828; }
+
+.stat-card__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.stat-card__titulo {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.stat-card__valor {
+  font-size: 34px;
+}
+
+.stat-card__rodape {
+  text-align: center;
+  font-size: 12px;
+}

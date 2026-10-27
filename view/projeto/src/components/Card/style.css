@@ -1,0 +1,12 @@
+.card {
+  background: var(--cor-card);
+  border-radius: var(--raio-card);
+  box-shadow: var(--sombra-card);
+  padding: 20px;
+}
+
+.card__titulo {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}

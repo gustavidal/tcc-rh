@@ -1,69 +1,34 @@
-// Import do express
 const express = require('express')
 
-// Import do body-parser
-const bodyParser = require('body-parser')
-
-// Permitindo a utilização do JSON na body das requisições
-const bodyParserJSON = bodyParser.json()
-
-// Criando um objeto de rota para os endpoints
 const router = express.Router()
 
-// Import do middleware de autenticação para verificar o token de acesso JWT
-const autenticar = require('../middleware/auth.js')
+const controller = require('../controllers/competencia/controller_competencia.js')
 
-// Import da controller de competencia
-const controllerCompetencia = require('../controller/competencia/controller_competencia.js')
+const responder = (res, resultado) => res.status(resultado.status_code || 500).json(resultado)
 
-router.post('/', autenticar, bodyParserJSON, async function (request, response) {
-    let dados       = request.body
-    let contentType = request.headers['content-type']
-    let result      = await controllerCompetencia.inserirNovaCompetencia(dados, contentType)
-
-    response.status(result.status_code)
-    response.json(result)
+router.post('/', async function (req, res) {
+    let result = await controller.inserirNovoCompetencia(req.body, req.headers['content-type'])
+    return responder(res, result)
 })
 
-router.get('/', autenticar, async function (request, response) {
-    let result = await controllerCompetencia.listarCompetencia()
-
-    response.status(result.status_code)
-    response.json(result)
+router.get('/', async function (req, res) {
+    let result = await controller.listarCompetencia()
+    return responder(res, result)
 })
 
-router.get('/:id', autenticar, async function (request, response) {
-    let id     = request.params.id
-    let result = await controllerCompetencia.buscarCompetencia(id)
-
-    response.status(result.status_code)
-    response.json(result)
+router.get('/:id', async function (req, res) {
+    let result = await controller.buscarCompetencia(req.params.id)
+    return responder(res, result)
 })
 
-router.put('/:id', autenticar, bodyParserJSON, async function (request, response) {
-    let dados       = request.body
-    let contentType = request.headers['content-type']
-    let id          = request.params.id
-    let result      = await controllerCompetencia.atualizarCompetencia(dados, id, contentType)
-
-    response.status(result.status_code)
-    response.json(result)
+router.put('/:id', async function (req, res) {
+    let result = await controller.atualizarCompetencia(req.body, req.params.id, req.headers['content-type'])
+    return responder(res, result)
 })
 
-router.delete('/:id', autenticar, async function (request, response) {
-    let id     = request.params.id
-    let result = await controllerCompetencia.excluirCompetencia(id)
-
-    response.status(result.status_code)
-    response.json(result)
-})
-
-router.get('/:id/funcionarios', autenticar, async function (request, response) {
-    let id     = request.params.id
-    let result = await controllerCompetencia.listarFuncionariosCompetencia(id)
-
-    response.status(result.status_code)
-    response.json(result)
+router.delete('/:id', async function (req, res) {
+    let result = await controller.excluirCompetencia(req.params.id)
+    return responder(res, result)
 })
 
 module.exports = router
